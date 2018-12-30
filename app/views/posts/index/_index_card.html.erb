@@ -1,0 +1,30 @@
+<%= link_to bulletin_post_path(post.bulletin, post), style: "color: black; text-decoration: none" do %>
+    <table style="background-color: white; margin-bottom: 50px; border: 1px solid #bebebe">
+        <tr>
+            <td>
+                <% if post.thumb_image.present? %>
+                    <img src="<%= post.thumb_image %>" style="width: 350px; height: 200px; margin: -1px;">
+                <% else %>
+                    <img src="/img/thumb_normal.png" style="width: 350px; height: 200px; margin: -1px;">
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <% if (@bulletin.opt_shop == true) %>
+                    <div align="center">
+                        <%= content_tag(:div, truncate( raw( sanitize(post.title, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 15, :omission => "..."), style: "font-size: 25px; font-weight: bold; padding: 20px;") %>
+                        <%= content_tag(:div, truncate( raw( sanitize(post.summary, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 43, :omission => "..."), style: "margin-top: -20px; padding: 20px; height: 80px;") %>
+                        <%= content_tag(:div, " #{post.price} KitCoin", class: "col-md-6 far fa-clock", style: "padding: 20px") %>
+                    </div>
+                <% else %>
+                    <%= content_tag(:div, truncate( raw( sanitize(post.title, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 15, :omission => "..."), style: "font-size: 25px; font-weight: bold; padding: 20px;") %>
+                    <%= content_tag(:div, truncate( raw( sanitize(post.summary, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 43, :omission => "..."), style: "margin-top: -20px; padding: 20px; height: 80px;") %>
+                    <div class="row">
+                        <%= content_tag(:div, " #{post.created_at.strftime('%Y-%m-%d %H:%M')}", class: "col-md-6 far fa-clock", style: "padding: 20px;") %>
+                    </div>
+                <% end %>
+            </td>
+        </tr>
+    </table>
+<% end %>

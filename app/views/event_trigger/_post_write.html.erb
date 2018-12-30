@@ -1,0 +1,179 @@
+<script type="text/javascript">
+
+    var Web3 = require('web3');
+    var web3 = new Web3();
+    web3.setProvider(new web3.providers.HttpProvider("http://13.209.151.195:50796"));
+    var vc = web3.eth.contract(
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "cand",
+				"type": "string"
+			}
+		],
+		"name": "addCandidate",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "killContract",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_petition",
+				"type": "string"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"type": "constructor",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "number",
+				"type": "uint8"
+			}
+		],
+		"name": "getCandidateString",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "number",
+				"type": "uint8"
+			}
+		],
+		"name": "getCandidateString2",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getNumOfCandidates",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "cand",
+				"type": "string"
+			}
+		],
+		"name": "getScore",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "numofpet",
+		"outputs": [
+			{
+				"name": "pet_name",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	}
+]
+)
+      .at("0x075142ac30c6529d90076bedf5b01a1e83c76afc");
+      
+
+    function showList() {
+      var table = document.getElementById("table1");
+      var length = vc.getNumOfCandidates();
+      for (var i = 0; i < length; i++) {
+        var candidate = vc.getCandidateString(i);
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = candidate;
+        cell2.innerHTML = vc.getScore(candidate);
+      }
+    }
+    function vote() {
+      var candidate = document.getElementById("candidate").value;
+      var account = "0xe73725de796fab4432a29bd0c2a5dbfb001fd60d";
+      web3.eth.defaultAccount = account;
+      if (web3.personal.unlockAccount(account, "eth")) {
+        // // var alreadyVoted = vc.alreadyVoted(candidate);
+        // // console.log(alreadyVoted);
+        // if (alreadyVoted)
+        //   alert("이미 투표하셨습니다.");
+        // else
+          vc.vote(candidate, function (err, result) { if (!err) alert("트랜잭션이 성공적으로 전송되었습니다.|n" + result) });
+      }
+
+    }
+    function addCand() {
+      var candidate = document.getElementById("candidate").value;
+      var account = "0xe73725de796fab4432a29bd0c2a5dbfb001fd60d";
+      if (web3.personal.unlockAccount(account, "eth")) {
+        vc.addCandidate(candidate, { from: account, gas: 2000000 }, function (err, result) { if (!err) alert("트랜잭션이 성공적으로 전송되었습니다.|n" + result) });
+      }
+    }
+</script>

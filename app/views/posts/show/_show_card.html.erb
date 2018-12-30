@@ -1,0 +1,291 @@
+<div class="blockchain_show" style="background: url('<%= @post.thumb_image.present? ? "#{@post.thumb_image}" : "/board_banner_img/blockchain_banner.jpg" %>') no-repeat fixed;">
+    <div class="banner-cover_black">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <% if @post.thumb_image.present? %>
+                        <img src="<%= @post.thumb_image %>" style="width: 350px; height: 200px;">
+                    <% else %>
+                        <img src="/img/thumb_normal.png" style="width: 500px; height: 300px;">
+                    <% end %>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-white" style="border-bottom: 1px solid white; padding-bottom: 10px; text-align: left;"><%= @post.title %></h2>
+                    <input type="hidden" id="title" value="<%= @post.title %>">
+                    <div style="margin-top: 20px; font-size: 15px;"><%= @post.summary %></div>
+                    
+                    <% if @bulletin.opt_post_vote == true %>
+                        <div align="center" style="margin-top: 50px">
+                            <% if (not current_user.voted_up_on? @post) || (current_user.has_role? :admin) %>
+                                <%= render 'posts/vote_render/disagree_issue', post: @post, bulletin: @bulletin %>
+                            <% else %>
+                                <%= render 'posts/vote_render/agree_issue', post: @post, bulletin: @bulletin %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+            
+            <% if not (@bulletin.opt_shop == true) %>
+                <div class="container text-white" style="background-color: #708dab; box-shadow: 7px 6px 1px rgba(0, 0, 0, 0.2); font-size: 15px; margin-top: 20px; padding: 20px;">
+                    <span style="font-size: 20px; font-weight: bold;">유의사항</span><br/><br/>
+                    * 간편구매를 통해서 구입한 베스텔라(VES)은 환불이 불가하며, 변경 및 취소할 수 없습니다. 신중히 확인하신 후 구매해주시기 바랍니다.<br/>
+                    * 베스텔라(VES) 토큰 정보와 관련된 문의는 비트소닉에서 진행되지 않으며 베스텔라 측에 문의하여야 합니다. (홈페이지 링크 확인)<br/>
+                    * 토큰 분배 시점은 베스텔라 측 일정을 따르게 됩니다.<br/>
+                    * 보너스로 지급되는 수량은 상장 후 90일 동안 락업(Lock-Up)되오니 참고 부탁드립니다.<br/>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div align="center" style="margin-top: -80px; background-color: white; color: black; min-height: 300px; padding: 20px;">
+        <%= @post.content.html_safe %>
+    </div>
+</div>
+
+<div class="container">
+    <form action="/event_trigger/select_agenda" method="post">
+        <div class="row">
+            <% if @bulletin.opt_agenda %>
+                <% if @post.opt_agenda1.present? %>
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/img/vote_input.png" class="vote-icon_width">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="vote_box">
+                                <%= @post.opt_agenda1 %>
+                                <input type="hidden" name="agenda1" value="<%= @post.opt_agenda1 %>" id="eth_title1">
+                                <div class="row" style="padding: 10px 0px">
+                                    <div class="number_box">1</div>
+                                    <div class="offset-md-2 col-md-4"><input type="text" name="vote1" class="input_noborder text-white" placeholder="숫자" id="eth_point1"></div>
+                                    <div class="col-md-4" style="text-align: left">표</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <% end %>
+                
+                <% if @post.opt_agenda2.present? %>
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="/img/vote_input.png" class="vote-icon_width">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="vote_box">
+                                <%= @post.opt_agenda2 %>
+                                <input type="hidden" name="agenda2" value="<%= @post.opt_agenda2 %>" id="eth_title2">
+                                <div class="row" style="padding: 10px 0px">
+                                    <div class="number_box">2</div>
+                                    <div class="offset-md-2 col-md-4"><input type="text" name="vote2" class="input_noborder text-white" placeholder="숫자"></div>
+                                    <div class="col-md-4" style="text-align: left">표</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <% end %>
+                
+                <% if @post.opt_agenda3.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda3 %>
+                                    <input type="hidden" name="agenda3" value="<%= @post.opt_agenda3 %>" id="eth_title3">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">3</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote3" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda4.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda4 %>
+                                    <input type="hidden" name="agenda4" value="<%= @post.opt_agenda4 %>" id="eth_title4">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">4</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote4" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda5.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda5 %>
+                                    <input type="hidden" name="agenda5" value="<%= @post.opt_agenda5 %>" id="eth_title5">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">5</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote5" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda6.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda6 %>
+                                    <input type="hidden" name="agenda6" value="<%= @post.opt_agenda6 %>" id="eth_title6">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">6</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote6" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda7.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda7 %>
+                                    <input type="hidden" name="agenda7" value="<%= @post.opt_agenda7 %>" id="eth_title7">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">7</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote7" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda8.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda8 %>
+                                    <input type="hidden" name="agenda8" value="<%= @post.opt_agenda8 %>" id="eth_title8">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">8</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote8" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda9.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda9 %>
+                                    <input type="hidden" name="agenda9" value="<%= @post.opt_agenda9 %>" id="eth_title9">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">9</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote9" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+                
+                <% if @post.opt_agenda10.present? %>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="/img/vote_input.png" class="vote-icon_width">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="vote_box">
+                                    <%= @post.opt_agenda10 %>
+                                    <input type="hidden" name="agenda10" value="<%= @post.opt_agenda10 %>" id="eth_title10">
+                                    <div class="row" style="padding: 10px 0px">
+                                        <div class="number_box">10</div>
+                                        <div class="offset-md-2 col-md-4"><input type="text" name="vote10" class="input_noborder text-white" placeholder="숫자"></div>
+                                        <div class="col-md-4" style="text-align: left">표</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        
+        <% if @bulletin.opt_agenda == true %>
+            <div class="text-center" style="padding: 60px">
+                <input type="submit" value="정책투표" class="btn btn-success">
+            </div>
+        <% end %>
+        
+    </form>
+</div>
