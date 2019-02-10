@@ -31,8 +31,8 @@
 
 
 ## 4. 핵심 코드파일
-1. ```app/views/event_trigger/_post_write.html.erb``` [<a href="/app/views/event_trigger/_post_write.html.erb">이동</a>] ABI 및 contract 주소 설정, javascript를 통한 web3 RPC 통신 (게시글 생성, 투표 시 트랜잭션 발생, 블록이 쓰여짐.)
-2. ```app/controllers/users/sessions_controller.rb``` [<a href="/app/controllers/users/sessions_controller.rb">이동</a>] Ruby를 통한 RPC 통신 (웹페이지에서 계정 생성 시 geth에 새로운 계정블록 생성)
+1. ```app/views/event_trigger/_post_write.html.erb``` [<a href="/app/views/event_trigger/_post_write.html.erb">이동</a>] ABI 및 contract 주소 설정, javascript를 통한 web3 IPC 통신 (게시글 생성, 투표 시 트랜잭션 발생, 블록이 쓰여짐.)
+2. ```app/controllers/users/registrations_controller.rb``` [<a href="/app/controllers/users/registrations_controller.rb">이동</a>] Ruby를 통한 RPC 통신 (웹페이지에서 계정 생성 시 geth에 새로운 계정블록 생성)
 3. ```app/controllers/posts_controller.rb``` [<a href="/app/controllers/posts_controller.rb">이동</a>] 게시글(Post) 내에 쓰여진 안건에 대한 Controller 처리 (좋아요, 글쓰기 등 이벤트 처리)
 4. ```app/views/posts/index/_index_main.html.erb``` [<a href="/app/views/posts/index/_index_main.html.erb">이동</a>] 시민 청원/정책 투표 게시글에 대한 목록 디자인
 5. ```app/views/posts/show/_show_card.html.erb``` [<a href="/app/views/posts/show/_show_card.html.erb">이동</a>] 시민 청원/정책 투표 게시글 열람(상세 페이지) 디자인
