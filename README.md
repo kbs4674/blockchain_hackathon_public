@@ -12,7 +12,7 @@
 
 
 ## 3. 프로젝트 개요
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/_V-6H27A6Dc/0.jpg)](https://www.youtube.com/watch?v=_V-6H27A6Dc)<br/>
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/_V-6H27A6Dc/0.jpg)](https://www.youtube.com/watch?v=c-1hkwJr9NA)<br/>
 ▲ 간략적인 홈페이지 소개 영상(클릭 시 Youtube영상 사이트로 이동)
 
 ### 1) 서론
